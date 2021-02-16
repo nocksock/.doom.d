@@ -25,7 +25,17 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-monokai-pro)
+(setq! +modeline-height 1)
+
+(setq doom-theme 'flatui
+      all-the-icons-scale-factor 1)
+
+;; use python3 in org-mode etc
+(setq org-babel-python-command "/usr/bin/python3")
+(setq py-python-command "/usr/bin/python3")
+
+;; Projectile
+(setq projectile-project-search-path '("~/projects/"))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -34,7 +44,18 @@
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
+;; (setq doom-modeline-height 0) ;; set the height of modeline to min
 
+(map! :leader
+      (:prefix-map ("p" . "project")
+        :desc "Run vterm" "v" #'projectile-run-vterm
+        )
+      )
+
+(global-set-key (kbd "s-b") '+treemacs/toggle) ; treemacs toggle keybind
+(global-set-key (kbd "s-b") '+treemacs/toggle) ; treemacs toggle keybind
+
+(setq tide-tsserver-process-environment '("TSS_LOG=-level verbose"))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -52,3 +73,5 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+(js2r-add-keybindings-with-prefix "C-c C-m")
